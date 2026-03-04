@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>Register</h2>
+<form method="POST">
+
+<div class="navbar">
+	<div class="container">
+		<div class="logo">Local Service Finder</div>
+		<div class="nav-links">
+			<a href="/login">Login</a>
+			<a href="/search">Search</a>
+		</div>
+	</div>
+</div>
+
+<div class="container-wide">
+<h2>Register</h2>
+<form method="POST">
+<input name="name" placeholder="Name"><br>
+<input name="email" placeholder="Email"><br>
+<input name="password" placeholder="Password"><br>
+<input name="phone" placeholder="Phone"><br>
+<input name="location" placeholder="Location"><br>
+
+<select name="role">
+<option value="user" {% if request.args.get('role') == 'user' %}selected{% endif %}>User</option>
+<option value="provider" {% if request.args.get('role') == 'provider' %}selected{% endif %}>Provider</option>
+<option value="admin" {% if request.args.get('role') == 'admin' %}selected{% endif %}>Admin</option>
+</select><br>
+
+<input name="category" placeholder="Category (for provider only)"><br>
+
+<button type="submit">Register</button>
+</form>
+</div>
+</body>
+</html>

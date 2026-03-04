@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa; /* light neutral background */
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+:root{
+    --primary: #2dd4bf; /* teal */
+    --accent: #2563eb; /* blue */
+    --muted: #6b7280;
+    --bg: #f5f7fa;
+}
+
+h2 {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+p {
+    color: #555;
+    line-height: 1.6;
+}
+
+form {
+    background: white;
+    width: 100%;
+    max-width: 450px;
+    margin: 30px auto;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 12px 0;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+}
+
+button {
+    padding: 12px 30px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s, transform 0.3s;
+    display: inline-block;
+    margin: 10px;
+}
+
+.dashboard-links a {
+    color: #ffffff;
+    font-size: 18px;
+    display: block;
+    margin: 10px 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.signup-links p {
+    color: #333;
+    margin-bottom: 10px;
+}
+.signup-links a {
+    display: inline-block;
+    margin: 5px 0;
+    color: #667eea;
+    font-weight: 600;
+}
+.signup-links a:hover {
+    color: #764ba2;
+}
+a:hover {
+    color: #764ba2;
+    transform: scale(1.05);
+}
+
+a:visited {
+    color: #667eea;
+}
+
+a:focus {
+    color: #667eea;
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+a:active {
+    color: #667eea;
+}
+
+.card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 500px;
+    margin: 15px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 30px rgba(16,24,40,0.08);
+    transition: all 0.3s ease;
+    border-left: 5px solid var(--primary);
+}
+
+.card:hover {
+    box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
+}
+
+.card h3 {
+    color: #667eea;
+    margin-top: 0;
+}
+
+.card p {
+    margin: 8px 0;
+}
+
+.card a {
+    margin: 5px;
+    display: inline-block;
+}
+
+/* Navbar */
+.navbar{
+    background: linear-gradient(90deg, rgba(37,99,235,0.9), rgba(45,212,191,0.95));
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.navbar .container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+.navbar .logo{
+    font-weight:700;
+    font-size:18px;
+}
+.navbar .nav-links a{ color: white; margin-left:12px; text-decoration:none; font-weight:600 }
+.role-badge{ background: rgba(255,255,255,0.15); padding:4px 8px; border-radius:6px; margin-left:12px }
+
+.quick-search{ max-width:700px }
+
+/* make forms and cards responsive */
+@media (min-width:900px){
+    .container-wide{ max-width: 1000px; margin: 0 auto}
+}
+
+/* dashboard role colors */
+.user-dashboard h2 {
+    color: #4CAF50; /* green */
+}
+.user-dashboard {
+    background: #e0f2f1; /* soft teal */
+}
+
+.provider-dashboard h2 {
+    color: #ff9800; /* orange */
+}
+.provider-dashboard {
+    background: #fff3e0; /* soft orange */
+}
+
+.admin-dashboard h2 {
+    color: #f44336; /* red */
+}
+.admin-dashboard {
+    background: #ffebee; /* soft red */
+}

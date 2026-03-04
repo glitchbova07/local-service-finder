@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="navbar">
+    <div class="container">
+        <div class="logo">Local Service Finder</div>
+        <div class="nav-links">
+            <a href="/register">Register</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-wide">
+<h2>Login</h2>
+<form method="POST" autocomplete="off">
+<select name="role" required>
+        <option value="user">User</option>
+        <option value="provider">Service Provider</option>
+        <option value="admin">Admin</option>
+</select><br>
+<input name="email" placeholder="Email" autocomplete="off"><br>
+<input name="password" placeholder="Password" autocomplete="off"><br>
+<button type="submit">Login</button>
+</form>
+
+<div class="signup-links">
+        <p>Don't have an account?</p>
+        <a href="/register?role=user">Sign up as User</a><br>
+        <a href="/register?role=provider">Sign up as Service Provider</a><br>
+        <a href="/register?role=admin">Sign up as Admin</a>
+    </div>
+</div>
+
+</body>
+</html>

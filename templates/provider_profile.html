@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ provider.name }} - Profile</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>{{ provider.name }}</h2>
+<p>Category: {{ provider.category }}</p>
+<p>Location: {{ provider.location }}</p>
+<p>Phone: {{ provider.phone }}</p>
+<p>Email: {{ provider.email }}</p>
+{% if ratings %}
+    {% set avg = (ratings | map(attribute='rating') | sum) / (ratings|length) %}
+    <p>Average Rating: {{ "%.1f"|format(avg) }} ({{ ratings|length }} reviews)</p>
+{% else %}
+    <p>No ratings yet</p>
+{% endif %}
+
+<h3>Ratings & Reviews</h3>
+<a href="/ratings/{{ provider._id }}">View All Reviews</a>
+{% if ratings %}
+    {% for r in ratings %}
+    <div class="card">
+        <strong>{{ r.rating }} / 5</strong> by {{ r.user_name or r.user_id }}<br>
+        <span style="color: green;">✓ Service Completed</span><br>
+        <em>{{ r.comment }}</em><br>
+        <small>{{ r.date }}</small>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No ratings yet.</p>
+{% endif %}
+
+<h3>Book {{ provider.name }}</h3>
+<form method="POST">
+    <textarea name="message" placeholder="Describe what you need..." required></textarea><br>
+    <button type="submit">Send Request</button>
+</form>
+
+</body>
+</html>

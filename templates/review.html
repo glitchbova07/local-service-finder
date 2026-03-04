@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Review</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>Write Review</h2>
+<p><strong>Service Booking ID:</strong> {{ booking._id }}</p>
+<p><strong>Provider ID:</strong> {{ booking.provider_id }}</p>
+<p><span style="color: green;">✓ Service Completed</span> - This is a genuine review from a completed service</p>
+
+<form method="POST">
+    <label for="rating">Rating:</label><br>
+    <select name="rating" id="rating" required>
+        <option value="">Select rating</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+    </select><br>
+
+    <label for="comment">Your Review:</label><br>
+    <textarea name="comment" id="comment" placeholder="Write your review..." required></textarea><br>
+
+    <button type="submit">Submit Review</button>
+</form>
+
+</body>
+</html>

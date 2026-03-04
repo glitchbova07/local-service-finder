@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Search</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="navbar">
+    <div class="container">
+        <div class="logo">Local Service Finder</div>
+        <div class="nav-links">
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-wide">
+<h2>Search Service</h2>
+
+<form method="GET" action="/search">
+    <input name="service" placeholder="Service name (optional)" value="{{ request.values.get('service','') }}"><br>
+    <input name="location" placeholder="Location" value="{{ request.values.get('location','') }}"><br>
+    <select name="category">
+        <option value="">All Categories</option>
+        {% for c in categories %}
+            <option value="{{ c.name }}" {% if request.values.get('category')==c.name %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+    </select><br>
+    <button type="submit">Search</button>
+</form>
+</div>
+
+{% if message %}
+<p style="color: red; font-size: 18px;">{{ message }}</p>
+{% endif %}
+
+{% for provider in providers %}
+<div class="card">
+    <h3><a href="/book/{{ provider._id }}">{{ provider.name }}</a></h3>
+    <p>Location: {{ provider.location }}</p>
+    <p>Category: {{ provider.category }}</p>
+    {% if provider.avg_rating %}
+        <p>Rating: {{ provider.avg_rating }} ({{ provider.rating_count }} reviews)</p>
+    {% else %}
+        <p>No ratings yet</p>
+    {% endif %}
+    {% if provider.verified %}
+        <a href="/book/{{ provider._id }}">View Profile &amp; Book</a>
+    {% else %}
+        <p style="color: orange;">(awaiting admin verification)</p>
+    {% endif %}
+</div>
+{% else %}
+<p style="color: red; font-size: 18px;">No Results Found - Service Not Available</p>
+{% endfor %}
+
+</body>
+</html>

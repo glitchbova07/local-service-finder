@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="user-dashboard">
+
+<div class="navbar">
+    <div class="container">
+        <div class="logo">Local Service Finder</div>
+        <div class="nav-links">
+            <a href="/search">Search</a>
+            <a href="/bookings">My Bookings</a>
+            <a href="/logout">Logout</a>
+            <span class="role-badge">{{ session.get('role') }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="container-wide">
+
+<h2>User Dashboard</h2>
+
+<div class="dashboard-links">
+    <a href="/search">Search Service</a><br>
+    <a href="/bookings">My Bookings</a><br>
+    <a href="/complaint">File Complaint</a><br>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="quick-search card">
+    <h3>Quick Search</h3>
+    <form method="GET" action="/search">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for c in categories %}
+                <option value="{{ c.name }}">{{ c.name }}</option>
+            {% endfor %}
+        </select>
+        <input name="service" placeholder="Service name (optional)">
+        <input name="location" placeholder="Location">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<h3>Completed Services - Leave Reviews</h3>
+{% if completed_bookings %}
+    {% for booking in completed_bookings %}
+    <div class="card">
+        <strong>Service:</strong> {{ booking.message }}<br>
+        <strong>Provider ID:</strong> {{ booking.provider_id }}<br>
+        <strong>Date Completed:</strong> {{ booking.date }}<br>
+        
+        {% if booking.has_review %}
+            <span style="color: green;">✓ You have reviewed this service</span>
+        {% else %}
+            <a href="/review/{{ booking._id }}">Write Review</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No completed services yet. Complete a booking to write reviews.</p>
+{% endif %}
+
+</body>
+</html>

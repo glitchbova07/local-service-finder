@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bookings</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>Bookings</h2>
+
+{% if bookings %}
+    {% for booking in bookings %}
+    <div class="card">
+        {% if session.get('role') == 'user' %}
+            Provider ID: {{ booking.provider_id }}<br>
+        {% else %}
+            Request from user: {{ booking.user_name }}<br>
+        {% endif %}
+        Status: {{ booking.status }}<br>
+        Date: {{ booking.date }}<br>
+        Message: {{ booking.message }}<br>
+        {% if booking.get('completed') %}
+            <span style="color: green;">✓ Service Completed</span>
+        {% endif %}
+
+        {% if booking.status == 'Pending' %}
+            {% if session.get('role') == 'provider' %}
+                <a href="/update_booking/{{ booking._id }}/Accepted">Accept</a>
+                <a href="/update_booking/{{ booking._id }}/Rejected">Reject</a>
+            {% endif %}
+        {% elif booking.status == 'Accepted' %}
+            {% if session.get('role') == 'provider' and not booking.get('completed') %}
+                <a href="/mark_completed/{{ booking._id }}">Mark Completed</a>
+            {% elif session.get('role') == 'user' and booking.get('completed') %}
+                <a href="/review/{{ booking._id }}">Write Review</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <p style="color: red; font-size: 18px;">No Bookings Found</p>
+{% endif %}
+
+<a href="/user_dash">Back to Dashboard</a>
+
+</body>
+</html>

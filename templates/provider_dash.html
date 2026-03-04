@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Provider Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="provider-dashboard">
+
+<div class="navbar">
+    <div class="container">
+        <div class="logo">Local Service Finder</div>
+        <div class="nav-links">
+            <a href="/search">Search</a>
+            <a href="/bookings">Bookings</a>
+            <a href="/logout">Logout</a>
+            <span class="role-badge">{{ session.get('role') }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="container-wide">
+
+<h2>Provider Dashboard</h2>
+
+<div class="quick-search card">
+    <h3>Quick Search</h3>
+    <form method="GET" action="/search">
+        <input name="service" placeholder="Service name (optional)">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for c in categories %}
+                <option value="{{ c.name }}">{{ c.name }}</option>
+            {% endfor %}
+        </select>
+        <input name="location" placeholder="Location">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+{% for booking in bookings %}
+<div class="card">
+    <strong>From:</strong> {{ booking.user_name or booking.user_id }}<br>
+    <strong>Status:</strong> {{ booking.status }}<br>
+    <strong>Message:</strong> {{ booking.message }}<br>
+    <strong>Date:</strong> {{ booking.date }}<br>
+    
+    {% if booking.get('completed') %}
+        <span style="color: green;">✓ Service Completed</span><br>
+    {% endif %}
+
+    {% if booking.status == 'Pending' %}
+        <a href="/update_booking/{{ booking._id }}/Accepted">Accept</a>
+        <a href="/update_booking/{{ booking._id }}/Rejected">Reject</a>
+    {% elif booking.status == 'Accepted' %}
+        {% if not booking.get('completed') %}
+            <a href="/mark_completed/{{ booking._id }}" style="background-color: #4CAF50; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none;">Mark Completed</a>
+        {% else %}
+            <span style="color: green;">Completed - User can now review</span>
+        {% endif %}
+    {% endif %}
+</div>
+{% endfor %}
+
+<a href="/logout">Logout</a>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="admin-dashboard">
+
+<div class="navbar">
+	<div class="container">
+		<div class="logo">Local Service Finder</div>
+		<div class="nav-links">
+			<a href="/search">Search</a>
+			<a href="/logout">Logout</a>
+			<span class="role-badge">{{ session.get('role') }}</span>
+		</div>
+	</div>
+</div>
+
+<div class="container-wide">
+
+<h2>Admin Dashboard</h2>
+
+{% for provider in providers %}
+<div class="card">
+{{ provider.name }} - {{ provider.location }}
+<a href="/verify/{{ provider._id }}">Verify</a>
+</div>
+{% endfor %}
+
+<h3>Manage Service Categories</h3>
+<form method="POST" action="/admin/categories">
+	<input type="text" name="name" placeholder="New category name" required>
+	<button type="submit">Add Category</button>
+</form>
+
+<h4>Existing Categories</h4>
+{% if categories %}
+	<ul>
+	{% for c in categories %}
+		<li>{{ c.name }}</li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No categories yet.</p>
+{% endif %}
+
+<a href="/logout">Logout</a>
+
+</div>
+
+</body>
+</html>

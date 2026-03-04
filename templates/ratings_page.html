@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ provider.name }} - Reviews</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>Reviews for {{ provider.name }}</h2>
+<p>Category: {{ provider.category }}</p>
+<p>Location: {{ provider.location }}</p>
+
+{% if ratings %}
+    {% set avg = (ratings | map(attribute='rating') | sum) / (ratings|length) %}
+    <h3>Average Rating: {{ "%.1f"|format(avg) }} / 5 ({{ ratings|length }} reviews)</h3>
+    
+    {% for r in ratings %}
+    <div class="card">
+        <strong>⭐ {{ r.rating }} / 5</strong> - Rated by <em>{{ r.user_name }}</em><br>
+        <span style="color: green;">✓ Service Completed</span><br>
+        <p>{{ r.comment }}</p>
+        <small>Reviewed on: {{ r.date }}</small>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No reviews yet.</p>
+{% endif %}
+
+<a href="/search">Back to Search</a>
+
+</body>
+</html>
