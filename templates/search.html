@@ -18,6 +18,8 @@
 <div class="container-wide">
 <h2>Search Service</h2>
 
+<p><a href="/complaint">File Complaint</a></p>
+
 <form method="GET" action="/search">
     <input name="service" placeholder="Service name (optional)" value="{{ request.values.get('service','') }}"><br>
     <input name="location" placeholder="Location" value="{{ request.values.get('location','') }}"><br>

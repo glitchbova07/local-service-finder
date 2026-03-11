@@ -39,5 +39,9 @@
     <button type="submit">Send Request</button>
 </form>
 
+{% if has_completed %}
+<p><a href="/complaint">File Complaint</a></p>
+{% endif %}
+
 </body>
 </html>

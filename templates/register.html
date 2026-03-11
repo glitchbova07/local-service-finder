@@ -7,7 +7,6 @@
 <body>
 
 <h2>Register</h2>
-<form method="POST">
 
 <div class="navbar">
 	<div class="container">
@@ -21,23 +20,38 @@
 
 <div class="container-wide">
 <h2>Register</h2>
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 <input name="name" placeholder="Name"><br>
 <input name="email" placeholder="Email"><br>
 <input name="password" placeholder="Password"><br>
 <input name="phone" placeholder="Phone"><br>
 <input name="location" placeholder="Location"><br>
 
-<select name="role">
+<select name="role" id="roleSelect" onchange="toggleProviderFields()">
 <option value="user" {% if request.args.get('role') == 'user' %}selected{% endif %}>User</option>
 <option value="provider" {% if request.args.get('role') == 'provider' %}selected{% endif %}>Provider</option>
 <option value="admin" {% if request.args.get('role') == 'admin' %}selected{% endif %}>Admin</option>
 </select><br>
 
-<input name="category" placeholder="Category (for provider only)"><br>
+<div id="providerFields" style="display: none;">
+    <input name="category" placeholder="Category (for provider only)"><br>
+    <label for="verification_doc">Upload qualification document</label><br>
+    <input type="file" name="verification_doc" id="verification_doc"><br>
+</div>
 
 <button type="submit">Register</button>
 </form>
 </div>
+
+<script>
+function toggleProviderFields() {
+    var role = document.getElementById('roleSelect').value;
+    var providerFields = document.getElementById('providerFields');
+    providerFields.style.display = role === 'provider' ? 'block' : 'none';
+}
+
+window.addEventListener('DOMContentLoaded', toggleProviderFields);
+</script>
+
 </body>
 </html>

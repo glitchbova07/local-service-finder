@@ -25,8 +25,7 @@
 <div class="dashboard-links">
     <a href="/search">Search Service</a><br>
     <a href="/bookings">My Bookings</a><br>
-    <a href="/complaint">File Complaint</a><br>
-    <a href="/logout">Logout</a>
+    <a href="/logout" class="btn-logout">⊗ Logout</a>
 </div>
 
 <div class="quick-search card">
@@ -42,6 +41,23 @@
         <input name="location" placeholder="Location">
         <button type="submit">Search</button>
     </form>
+
+    {% if recent_searches %}
+    <div class="recent-searches">
+        <h4>Recent Searches</h4>
+        <ul>
+            {% for rs in recent_searches %}
+            <li>
+                <a href="{{ url_for('search') }}?service={{ rs.service|urlencode }}&location={{ rs.location|urlencode }}&category={{ rs.category|urlencode }}">
+                    {% if rs.service %}Service: {{ rs.service }}{% endif %}
+                    {% if rs.location %}{{ " | " if rs.service }}Location: {{ rs.location }}{% endif %}
+                    {% if rs.category %}{{ " | " if rs.service or rs.location }}Category: {{ rs.category }}{% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 </div>
 
 <h3>Completed Services - Leave Reviews</h3>

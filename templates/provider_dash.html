@@ -10,8 +10,8 @@
     <div class="container">
         <div class="logo">Local Service Finder</div>
         <div class="nav-links">
-            <a href="/search">Search</a>
-            <a href="/bookings">Bookings</a>
+            <a href="/bookings">My Bookings</a>
+            <a href="/ratings/{{ session['user_id'] }}">My Ratings & Reviews</a>
             <a href="/logout">Logout</a>
             <span class="role-badge">{{ session.get('role') }}</span>
         </div>
@@ -22,20 +22,19 @@
 
 <h2>Provider Dashboard</h2>
 
-<div class="quick-search card">
-    <h3>Quick Search</h3>
-    <form method="GET" action="/search">
-        <input name="service" placeholder="Service name (optional)">
-        <select name="category">
-            <option value="">All Categories</option>
-            {% for c in categories %}
-                <option value="{{ c.name }}">{{ c.name }}</option>
-            {% endfor %}
-        </select>
-        <input name="location" placeholder="Location">
-        <button type="submit">Search</button>
-    </form>
-</div>
+<h3>Your Ratings & Reviews</h3>
+{% if ratings %}
+    {% for r in ratings %}
+    <div class="card">
+        <strong>{{ r.rating }} / 5</strong> by {{ r.user_name or r.user_id }}<br>
+        <span style="color: green;">✓ Service Completed</span><br>
+        <em>{{ r.comment }}</em><br>
+        <small>{{ r.date }}</small>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No ratings yet.</p>
+{% endif %}
 
 {% for booking in bookings %}
 <div class="card">

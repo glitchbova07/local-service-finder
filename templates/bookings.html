@@ -32,7 +32,12 @@
             {% if session.get('role') == 'provider' and not booking.get('completed') %}
                 <a href="/mark_completed/{{ booking._id }}">Mark Completed</a>
             {% elif session.get('role') == 'user' and booking.get('completed') %}
-                <a href="/review/{{ booking._id }}">Write Review</a>
+                {% if not booking.has_review %}
+                    <a href="/review/{{ booking._id }}">Write Review</a>
+                {% endif %}
+                {% if not booking.has_complaint %}
+                    <a href="/complaint?booking_id={{ booking._id }}">File Complaint</a>
+                {% endif %}
             {% endif %}
         {% endif %}
     </div>
@@ -41,7 +46,11 @@
     <p style="color: red; font-size: 18px;">No Bookings Found</p>
 {% endif %}
 
+{% if session.get('role') == 'provider' %}
+<a href="/provider_dash">Back to Provider Dashboard</a>
+{% else %}
 <a href="/user_dash">Back to Dashboard</a>
+{% endif %}
 
 </body>
 </html>

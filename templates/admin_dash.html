@@ -10,7 +10,7 @@
 	<div class="container">
 		<div class="logo">Local Service Finder</div>
 		<div class="nav-links">
-			<a href="/search">Search</a>
+			<a href="/admin_dash">Dashboard</a>
 			<a href="/logout">Logout</a>
 			<span class="role-badge">{{ session.get('role') }}</span>
 		</div>
@@ -19,33 +19,70 @@
 
 <div class="container-wide">
 
-<h2>Admin Dashboard</h2>
+<h2 style="margin-bottom: 30px;">Admin Dashboard</h2>
 
-{% for provider in providers %}
-<div class="card">
-{{ provider.name }} - {{ provider.location }}
-<a href="/verify/{{ provider._id }}">Verify</a>
+<!-- Unverified Providers Section -->
+<div style="margin-bottom: 40px;">
+	<h3 style="border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Unverified Providers</h3>
+	{% if providers %}
+		{% for provider in providers %}
+		<div class="card" style="border-left: 5px solid #FF5722;">
+			<strong>Name:</strong> {{ provider.name }}<br>
+			<strong>Location:</strong> {{ provider.location }}<br>
+			<strong>Category:</strong> {{ provider.category }}<br>
+			<strong>Phone:</strong> {{ provider.phone }}<br>
+			<strong>Email:</strong> {{ provider.email }}<br>
+			{% if provider.verification_doc %}
+				<p>Qualification document: <a href="{{ url_for('static', filename='uploads/' ~ provider.verification_doc) }}" target="_blank">View</a></p>
+			{% endif %}
+			
+			<form method="POST" action="/verify/{{ provider._id }}" style="margin-top: 15px;">
+				<div style="margin-bottom: 10px;">
+					<textarea name="reason" placeholder="Reason for rejection (optional)" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; min-height: 80px; box-sizing: border-box;"></textarea>
+				</div>
+				<button type="submit" name="action" value="approve" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-right: 10px; border: none; cursor: pointer; font-weight: bold;">Verify</button>
+				<button type="submit" name="action" value="reject" style="background-color: #f44336; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; border: none; cursor: pointer; font-weight: bold;">Reject</button>
+			</form>
+		</div>
+		{% endfor %}
+	{% else %}
+		<p>All providers are verified.</p>
+	{% endif %}
 </div>
-{% endfor %}
 
-<h3>Manage Service Categories</h3>
-<form method="POST" action="/admin/categories">
-	<input type="text" name="name" placeholder="New category name" required>
-	<button type="submit">Add Category</button>
-</form>
+<!-- Complaints Section -->
+<div style="margin-bottom: 40px;">
+	<h3 style="border-bottom: 3px solid #FF9800; padding-bottom: 10px;">Complaints</h3>
+	<a href="/admin/all_complaints" style="display: inline-block; background-color: #FF9800; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: bold;">View Complaints</a>
+</div>
 
-<h4>Existing Categories</h4>
-{% if categories %}
-	<ul>
-	{% for c in categories %}
-		<li>{{ c.name }}</li>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p>No categories yet.</p>
-{% endif %}
+<!-- Manage Categories Section -->
+<div>
+	<h3 style="border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Manage Service Categories</h3>
+	
+	<!-- Add Category Card -->
+	<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 10px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
+		<h4 style="color: white; margin-top: 0; margin-bottom: 15px; font-size: 16px;">Add New Service Category</h4>
+		<form method="POST" action="/admin/categories" style="display: flex; flex-direction: column; gap: 12px;">
+			<input type="text" name="name" placeholder="Enter category name..." required style="padding: 16px 18px; border: none; border-radius: 6px; width: 100%; font-size: 16px; background-color: white; color: #333; font-weight: 500; outline: none; box-sizing: border-box; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: box-shadow 0.3s; min-height: 55px;">
+			<button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; font-size: 14px; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3); transition: background-color 0.3s; white-space: nowrap; width: fit-content;">Add</button>
+		</form>
+	</div>
 
-<a href="/logout">Logout</a>
+	<h4 style="margin-top: 20px; margin-bottom: 10px; font-size: 16px; font-weight: bold;">Existing Categories</h4>
+	{% if categories %}
+		<ul style="list-style: none; padding: 0;">
+		{% for c in categories %}
+			<li style="padding: 12px; margin: 8px 0; background-color: #f5f5f5; border-left: 4px solid #2196F3; border-radius: 3px; display: flex; justify-content: space-between; align-items: center;">
+				<span style="font-weight: 500;">{{ c.name }}</span>
+				<a href="/admin/delete_category/{{ c._id }}" style="color: white; background-color: #f44336; padding: 6px 12px; border-radius: 3px; text-decoration: none; font-size: 12px; font-weight: bold;">Delete</a>
+			</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p>No categories yet.</p>
+	{% endif %}
+</div>
 
 </div>
 

@@ -26,7 +26,11 @@
     <p>No reviews yet.</p>
 {% endif %}
 
+{% if session.get('role') == 'provider' %}
+<a href="/provider_dash">Back to Provider Dashboard</a>
+{% else %}
 <a href="/search">Back to Search</a>
+{% endif %}
 
 </body>
 </html>

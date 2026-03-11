@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Complaints - {{ provider.name }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+	<div class="container">
+		<div class="logo">Local Service Finder</div>
+		<div class="nav-links">
+			<a href="/admin_dash">Back to Dashboard</a>
+			<a href="/logout">Logout</a>
+			<span class="role-badge">{{ session.get('role') }}</span>
+		</div>
+	</div>
+</div>
+
+<div class="container-wide">
+
+<h2>Complaints About {{ provider.name }}</h2>
+
+{% if complaints %}
+	{% for complaint in complaints %}
+	<div class="card">
+		<strong>Complaint from:</strong> {{ complaint.user_name }}<br>
+		<strong>Date:</strong> {{ complaint.date }}<br>
+		<strong>Details:</strong> {{ complaint.text }}<br>
+		<a href="/admin/delete_complaint/{{ complaint._id }}" style="color: red; text-decoration: none;">Delete Complaint</a>
+	</div>
+	{% endfor %}
+{% else %}
+	<p>No complaints about this provider.</p>
+{% endif %}
+
+</div>
+
+</body>
+</html>

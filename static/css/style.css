@@ -6,24 +6,24 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f7fa; /* light neutral background */
+    background: #ffffff; /* white background */
     min-height: 100vh;
     padding: 20px;
-    color: #333;
+    color: #1a1a1a;
 }
 
 :root{
-    --primary: #2dd4bf; /* teal */
-    --accent: #2563eb; /* blue */
+    --primary: #0066cc; /* vibrant blue */
+    --accent: #ff6b35; /* vibrant orange */
     --muted: #6b7280;
     --bg: #f5f7fa;
 }
 
 h2 {
-    color: white;
+    color: #0d1b2a;
     font-size: 32px;
     margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-shadow: none;
 }
 
 h3 {
@@ -75,7 +75,7 @@ input:focus, select:focus, textarea:focus {
 
 button {
     padding: 12px 30px;
-    background: var(--primary);
+    background: #0066cc;
     color: white;
     border: none;
     border-radius: 6px;
@@ -89,7 +89,8 @@ button {
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4);
+    background: #0052a3;
 }
 
 button:active {
@@ -111,6 +112,37 @@ a {
     display: block;
     margin: 10px 0;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.dashboard-links a.btn-complaint {
+    background: linear-gradient(135deg, #ff4444, #cc0000);
+    padding: 16px 28px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    border: 2px solid #990000;
+    box-shadow: 0 4px 12px rgba(204, 0, 0, 0.3);
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-links a.btn-complaint:hover {
+    background: linear-gradient(135deg, #ff6666, #dd1111);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(204, 0, 0, 0.5);
+}
+
+.dashboard-links a.btn-complaint:active {
+    transform: translateY(-1px);
+}
+
+.dashboard-links a.btn-logout {
+    color: #0066cc;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .signup-links p {
@@ -178,7 +210,7 @@ a:active {
 
 /* Navbar */
 .navbar{
-    background: linear-gradient(90deg, rgba(37,99,235,0.9), rgba(45,212,191,0.95));
+    background: linear-gradient(90deg, #0066cc, #ff6b35);
     color: white;
     padding: 12px 20px;
     border-radius: 8px;
@@ -205,22 +237,22 @@ a:active {
 
 /* dashboard role colors */
 .user-dashboard h2 {
-    color: #4CAF50; /* green */
+    color: #1a3a52; /* dark blue-gray */
 }
 .user-dashboard {
-    background: #e0f2f1; /* soft teal */
+    background: #f0f4f8; /* professional light blue-gray */
 }
 
 .provider-dashboard h2 {
-    color: #ff9800; /* orange */
+    color: #cc3300; /* dark orange */
 }
 .provider-dashboard {
-    background: #fff3e0; /* soft orange */
+    background: #ffe8d1; /* light orange */
 }
 
 .admin-dashboard h2 {
-    color: #f44336; /* red */
+    color: #cc0000; /* dark red */
 }
 .admin-dashboard {
-    background: #ffebee; /* soft red */
+    background: #ffe0e0; /* light red */
 }

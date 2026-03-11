@@ -6,11 +6,17 @@
 </head>
 <body>
 
-<h2>Complaint</h2>
+<h2>File Complaint</h2>
+
+{% if booking %}
+<p><strong>Provider ID:</strong> {{ booking.provider_id }}</p>
+<p><strong>Service:</strong> {{ booking.message }}</p>
+<p><strong>Date Completed:</strong> {{ booking.date }}</p>
+{% endif %}
 
 <form method="POST">
-<textarea name="text"></textarea><br>
-<button type="submit">Submit</button>
+<textarea name="text" placeholder="Describe your complaint..." required></textarea><br>
+<button type="submit">Submit Complaint</button>
 </form>
 
 </body>
